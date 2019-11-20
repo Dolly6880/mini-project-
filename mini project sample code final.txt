@@ -1,0 +1,134 @@
+
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+
+dataset=pd.read_excel("depression 2.xls")
+#
+
+X = dataset.iloc[:, 0:6].values
+y= dataset.iloc[:, 6].values
+
+
+
+from sklearn.model_selection import train_test_split
+X_train,X_test,y_train,y_test=train_test_split(X,y)
+
+from sklearn.tree import DecisionTreeClassifier
+clf = DecisionTreeClassifier(max_depth=6)
+
+clf.fit(X_train, y_train)
+
+predicted = clf.predict(X_test)
+expected = y_test
+print(predicted) 
+print(expected) 
+
+
+
+from sklearn import metrics
+y_pred = clf.predict(X)
+
+print(metrics.confusion_matrix(y_pred, y))
+
+
+from sklearn.metrics import precision_score, recall_score, f1_score
+a=precision_score(y, y_pred,average='macro')
+b=recall_score(y, y_pred,average='macro')
+c=f1_score(y, y_pred,average='macro')
+
+
+
+clf.score(X, y)
+
+
+Hospt=input("Hospt")
+#5 hospitals (1, 2, 3, 5, or 6)
+
+Treat=input("Treat")
+#The treatment received by the patient (Lithium, Imipramine, or Placebo)
+
+Time=input("Time")
+'''Either the time (days) till recurrence
+, or if no recurrence, the length (days) of the patient’s participation in the study.'''
+
+AcuteT=input("AcuteT")
+#The time (days) that the patient was depressed prior to the study.
+
+Age=input("Age")
+#The age of the patient in years,
+
+Gender=input("Gender")
+#gender (1 = Female, 2 = Male)
+
+T=clf.predict([[Hospt,Treat,Time,AcuteT,Age,Gender]])
+
+# diabates
+
+dataset=pd.read_csv("diabetes.csv")
+X = dataset.iloc[:, 0:8].values
+y = dataset.iloc[:, 8].values
+
+
+
+from sklearn.model_selection import train_test_split
+X_train,X_test,y_train,y_test=train_test_split(X,y)
+
+from sklearn.tree import DecisionTreeClassifier
+clf = DecisionTreeClassifier(max_depth=6)
+
+clf.fit(X_train, y_train)
+
+predicted = clf.predict(X_test)
+expected = y_test
+print(predicted) 
+print(expected) 
+
+plt.scatter(expected, predicted)
+
+from sklearn import metrics
+y_pred = clf.predict(X)
+
+print(metrics.confusion_matrix(y_pred, y))
+
+
+from sklearn.metrics import precision_score, recall_score, f1_score
+d=precision_score(y, y_pred,average='macro')
+e=recall_score(y, y_pred,average='macro')
+f=f1_score(y, y_pred,average='macro')
+
+plt.scatter(a,b)
+plt.plot(expected,predicted)
+
+clf.score(X, y)
+
+No_of_times_pregnant=input("No_of_times_pregnant")
+
+glucose_concentration=input("glucose_concentration")
+blood_pressure=input("blood_pressure")
+skin_fold_thickness=input("skin_fold_thickness")
+serum_insulin=input("serum_insulin")
+
+
+BMI=input("BMI")
+Diabetes_pedigree=input("Diabetes_pedigree")
+Age=input("Age")
+
+j=clf.predict([[No_of_times_pregnant,glucose_concentration,blood_pressure,skin_fold_thickness,serum_insulin,BMI,Diabetes_pedigree,Age]])
+
+
+
+if(T==0 or j==0):
+    print("person is NOT depressive and non diabatic")
+elif(T==1 and j==0):
+    print("DEPRESSIVE")
+elif(T==0 and j==1):
+    print("Diabatic")
+else:
+    print("both DEPRESSIVE and diabatic")
+    
+    
+
+
+
